@@ -1,0 +1,14 @@
+﻿ 
+body {
+font: 100% 'Microsoft Yahei',verdana, arial, sans-serif;
+background-color: #fff;
+margin: 50px;
+}
+
+span.proinfo {
+color:green;
+font-weight: bold;
+}
+ 
+ 
+/* end css tabs */
