@@ -7,142 +7,43 @@
 <meta name="author" content="" />
 <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="tab.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="./calendar/calendar.css" media="screen" />
+<script type="text/javascript" src="./calendar/calendar_us.js"> </script>
 <script type="text/javascript" src="./includes/tabber.js"> </script>
-
+<script type="text/javascript" src="./includes/main.js"> </script>
+<script type="text/javascript" src="http://stevenlevithan.com/assets/misc/date.format.js" > </script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
 <script type="text/javascript">
-//window.onload =function (){
-//document.getElementById("userurl").focus();
-//}
-
-//check invalidity of the user url.
-function checkUrl(url) {
-	var f=false;
-	url=url.replace(" ",""); //remove spaces
-	if (url.indexOf("360buy.com")>-1) {
-		if ((url.indexOf("brand")==-1) && (url.search(/[0-9]+\.html\/?/i)!=-1)) {
-			f=1; //single product url
+$().ready(function() {
+	// if text input field value is not empty show the "X" button
+	$("#userurl").keyup(function() {
+		$("#x").fadeIn();
+		if ($.trim($("#userurl").val()) == "") {
+			$("#x").fadeOut();
 		}
-		else {
-			f=2; //cateogry url
-		}
-	}
-	return f;
-}
-
-function showResult(url)
-{
-var ptag=checkUrl(url);
-if (!ptag) {
-	alert("Invalid product URL!\n\rONLY support 360buy.com so far!");
- return;
-}
-
-
-xmlhttp=getXHR();
-xmlhttp.onreadystatechange=function() {
-document.getElementById("loadingImg").style.display="inherit";
-document.getElementById("loadingImg").src="s.gif";
-
-if (xmlhttp.readyState==4 && xmlhttp.status==200)	{
-	var pinfo = getPInfo(xmlhttp.responseText);		
-	if (ptag==1) {  //single product 
-		document.getElementById("plist").style.display="none";
-		document.getElementById("pptitle1").innerHTML=pinfo[0]; //title
-		document.getElementById("ppprice1").innerHTML=pinfo[1]; //price
-		document.getElementById("pptitle2").innerHTML=pinfo[0]; //title
-		document.getElementById("ppprice2").innerHTML=pinfo[1]; //price
-		document.getElementById("ppprice3").innerHTML=pinfo[1]; //price
-		document.getElementById("pptitle3").innerHTML=pinfo[0]; //title		
-		document.getElementById("ppinfo").style.display="inherit";
-	}
-	else if (ptag==2) {
-		document.getElementById("plist").style.display="inherit";
-		document.getElementById("ppinfo").style.display="none"; //hide the div for single product
-		document.getElementById("plist").innerHTML=pinfo; //price
-	}
-	document.getElementById("loadingImg").style.display="none";
-	}
-}
-	xmlhttp.open("GET","livesearch.php?q="+url.replace(" ",""),true);
-	xmlhttp.setRequestHeader("If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT"); //
-	xmlhttp.send();
-}
-
-//get product info: title, price and url
-function getPInfo(pinfo) {
- var pinfoArr = [];
-if (pinfo.length<5) {
- alert("Invalid pinfo");
-}
-else{
-	var pptitle=pinfo.substr(0,pinfo.indexOf("\r\n"));
-	var ppprice=pinfo.substring(pinfo.indexOf("\r\n"),pinfo.lastIndexOf("\r\n"));
-	ppprice=ppprice.replace("\r\n","");
-	var ppurl=pinfo.substring(pinfo.lastIndexOf("\r\n"));
-	ppurl=ppurl.replace("\r\n","");
-	pinfoArr[0]=pptitle;
-	pinfoArr[1]=ppprice;
-	pinfoArr[2]=ppurl;
-}
-return pinfoArr;
-}
-
-//basic ajax wrapper
-function getXHR() {
-if (window.XMLHttpRequest) {
-return new XMLHttpRequest();  // code for IE7+, Firefox, Chrome, Opera, Safari
-} else if (window.ActiveXObject) {
-return new ActiveXObject("Microsoft.XMLHTTP"); // code for IE6, IE5
-}
-}
-
-//check if any product has been selected and if the email is valid.
-function checkForm() {
-var chks = document.getElementsByName('pid[]');
-var email = document.getElementById('email').value;
-var flag = false;
-
-if (chks.length==0) {
-alert("No product found in the given url!");
-return flag;
-}
-
-if ((email.indexOf(".") < 2) || (email.indexOf("@") == 0)) {
-alert("Invalid email address!");}
-else {
-var j=0;
-for (var i=0;i<chks.length;i++) {
-if (chks[i].checked) {
-j++;
-flag=true;
-}
-}
-if (j==0) {
-alert("No produect selected!");
-}
-}
-return flag;
-}
-//toggle on/off all checkboxes
-function checkAll() {
-var chks = document.getElementsByName('pid[]');
-var chkall = document.getElementById('chkall'); 
-for (var i=0;i<chks.length;i++) {
-chks[i].checked=chkall.checked;
-}
-}
-
-//-->
-</script>		
+	});
+	// on click of "X", delete input field value and hide "X"
+	$("#x").click(function() {
+		$("#userurl").val("");
+		$(this).hide();
+	});
+});
+</script>
 </head>
 
 <body>
+
 <h2>Three easy steps:</h2>
-<h3>Copy and paste your url below and then press Enter</h3>
+<h3>Copy and paste your url below</a> and then press Enter</h3>
 Note:<ol><li>360buy.com only, for now</li><li>work sample: http://www.360buy.com/electronics.html</li>
 <li>http://www.360buy.com/product/497462.html</li></ol>
-<div>
-<table><tr><td><input id="userurl" type="text" size="70" onkeyup="javascript:if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode==13)) {showResult(this.value);}};" /></td>
+
+<div id="searchContainer">
+<table><tr><td>
+<input id="userurl" type="text" size="70" onkeyup="if(checkEnter(event)){showResult(this.value);};" />
+<div id="delete"><span id="x">x</span></div>
+<input type="button" name="submit" id="submit" value="Search" onclick="showResult(document.getElementById('userurl').value);" />
+</td>
 <td><img id="loadingImg" align="middle" style="display:none;" />&nbsp;</td></tr>
 <tr><td><input name="noname" type="text" value="" style="display:none" /> </td><td></td></tr>
 </table>
@@ -152,22 +53,27 @@ Note:<ol><li>360buy.com only, for now</li><li>work sample: http://www.360buy.com
      <div class="tabbertab">
 	  <h2>价格保护</h2>
 	  <p>您买了<span id="pptitle1" class="proinfo">&nbsp;</span></p>
-	  <p>买入价 <span id="ppprice1" class="proinfo">&nbsp;</span></p>
-	  <p>购买日期 <span id="ppdate1" class="proinfo">今天</span></p>
+	  <p>买入价 <input class="mpinfo" type="text" id="ppprice1" />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="activeInput('ppprice1')" >修改?</a></p>
+	  <form name="calform">
+	  <p>购买日期<input class="mpinfo" type="text" id="ppdate1" name="ppdate1" />
+		<script language="JavaScript"> 
+		document.getElementById('ppdate1').value= (new Date()).format('mm/dd/yyyy');
+		new tcal ({'formname': 'calform','controlname': 'ppdate1',}); 
+		</script> 
+		</p></form>
      </div>
-	 
      <div class="tabbertab">
 	  <h2>价格目标</h2>
 	  <p><span id="pptitle2" class="proinfo">&nbsp;</span></p>
-	  <p>目标价格 <span id="ppprice2" class="proinfo">&nbsp;</span></p>
-	  <p>监测天数 <span id="ppdur2" class="proinfo">15</span></p>
+	  <p>目标价格 <input class="mpinfo" type="text" id="ppprice2">&nbsp;</input>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="activeInput('ppprice2')" >修改?</a></p>
+	  <p>监测天数 <input class="mpinfo" type="text" id="ppdur2" value="15">&nbsp;</input>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="activeInput('ppdur2')" >修改?</a></p>
      </div>
 	 
 	 <div class="tabbertab">
 	  <h2>价格监测</h2>
 	  <p><span id="pptitle3" class="proinfo">&nbsp;</span></p>
-	  <p>现价 <span id="ppprice3" class="proinfo">&nbsp;</span></p>
-	  <p>监测天数 <span id="ppdur3" class="proinfo">15</span></p>
+	  <p>现价 <input class="mpinfo" type="text" id="ppprice3" >&nbsp;</input>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="activeInput('ppprice3')" >修改?</a></p>
+	  <p>监测天数 <input class="mpinfo" type="text" id="ppdur3" value="15">&nbsp;</input>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="activeInput('ppdur3')" >修改?</a></p>
      </div>
 
 	 <div class="tabbertab">

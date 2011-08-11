@@ -19,11 +19,13 @@ if ($buy360::isProductUrl($url)==true){  //Only one single product should be cap
   }
 else { //Multiple products. Take time to load.
 	$plist=$buy360::getProductList($url); //pid,title,url
+	//if (count($plist)==0) {
 	echo "<table border=1px><tr><td><input type="."\"checkbox\""." id=\"chkall\" onclick=\"checkAll()\" /></td><td>Title</td><td>Price</td></tr>";
 	for ($i=0;$i<count($plist[0]);$i++){
 		echo "<tr><td><input type="."\"checkbox\""." name=\"pid[]\" value=\"" .$plist[0][$i]. "\" /></td><td><a href=\"".$plist[2][$i]. "\" target=\"_blank\">".$plist[1][$i]. "</a></td><td>". "Get Price!"."</td></tr>";		
 	}
 	echo "</table>";
+	//}
 	//	$pinfo =$buy360::getProductInfo($purl);
 }
 
