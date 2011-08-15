@@ -1,8 +1,78 @@
 ﻿ 
 body {
-font: 100% 'Microsoft Yahei',verdana, arial, sans-serif;
+font-family: 'Microsoft Yahei',verdana, arial, sans-serif;
 background-color: #f8f8f8;
-margin: 50px;
+margin: 20px;
+}
+
+a{
+text-decoration:none;
+}
+a:hover{
+text-decoration: underline
+}
+
+span.steps{
+font-size:1.1em;
+font-weight:bold;
+
+}
+
+div.header{
+   display:inline;   
+   float: left;   
+   width: 95%; 
+   height: 20%;   
+   margin-bottom:5px;
+   border-bottom:2px solid #E8E6E6;
+}
+
+div.mainleft{
+  display:inline;   
+  float: left;   
+  width: 25%;
+  padding-right:15px;
+  height: 70%;    
+  border-right: 2px solid #E8E6E6;
+}
+
+div.mainright{
+  display:inline;   
+  float: right;   
+  width: 70%; 
+  height: 70%; 
+  padding-left:10px;
+}
+
+div.footer{
+  display:inline;   
+  float: left;   
+  width: 95%;
+  height:10%;
+  margin-top:5px;
+  border-top:2px solid #E8E6E6;
+
+}
+
+#logo{
+display:inline;
+float:left;
+}
+
+#nav{
+display:inherit;
+float:right;
+padding-top:40px;
+font-size:1.5em;
+font-weight:bold;
+word-spacing:20px;
+}
+
+#lang{
+position:absolute;
+right:20px;
+top:20px;
+word-spacing:10px;
 }
 
 /* div container containing the form  */
@@ -10,10 +80,13 @@ margin: 50px;
 	margin:20px;
 }
 
+input{
+	outline: none; /* remove the auto-yellow in chrome*/
+}
 /* Style the search input field. */
-input#userurl {
+#userurl {
 	float:left;
-	width:500px;
+	width:450px;
 	height:27px;
 	line-height:27px;
 	text-indent:10px;
@@ -27,7 +100,7 @@ input#userurl {
 }
 
 /* Style the "X" text button next to the search input field */
-div#delete {
+#delete {
 	float:left;
 	width:16px;
 	height:29px;
@@ -42,18 +115,17 @@ div#delete {
 	border-left:none;
 }
 /* Set default state of "X" and hide it */
-div#delete #x {
+#delete #x {
 	color:#A1B9ED;
 	cursor:pointer;
 	display:none;
 }
 /* Set the hover state of "X" */
-div#delete #x:hover {
+#delete #x:hover {
 	color:#36c;
 }
 
-/* Syle the search button. Settings of line-height, font-size, text-indent used to hide submit value in IE */
-input#submit {
+#submit {
 	cursor:pointer;
 	width:70px;
 	height: 31px;
@@ -61,31 +133,42 @@ input#submit {
 	font-size:0;
 	text-indent:-999px;
 	color: transparent;
-	background: url(ico-search.png) no-repeat #4d90fe center;
+	background: url('../images/search.png') no-repeat #4d90fe center;
 	border: 1px solid #3079ED;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
 }
 /* Style the search button hover state */
-input#submit:hover {
-	background: url(ico-search.png) no-repeat center #357AE8;
+#submit:hover {
+	background: url('../images/search.png') no-repeat center #357AE8;
 	border: 1px solid #2F5BB7;
 }
-/* Clear floats */
-.fclear {clear:both}
 
 span.proinfo {
-color:green;
+color:#0B0938;
 font-weight: bold;
 }
 
 input {
 font-family:'Microsoft Yahei',verdana, arial, sans-serif;
-font-size:100%;
+font-size:1em;
 font-weight: bold;
-height:50px;
+height:25px;
 }
- 
+
+#useremail{
+	width:250px;
+	height:27px;
+	line-height:27px;
+	text-indent:10px;
+	font-family:arial, sans-serif;
+	font-size:1em;
+	color:#333;
+	background: #fff;
+	border:solid 1px #d9d9d9;
+	border-top:solid 1px #c0c0c0;
+}
+ /*
  input:hover{
  background-color:#f8f8f8;
  background-image:linear-gradient(top,#f8f8f8,#f1f1f1);
@@ -94,20 +177,17 @@ height:50px;
  box-shadow:0 1px 1px rgba(0,0,0,0.1);
  color:#333
  }
- 
+ */
  
 input.mpinfo{
-color:green;
- background-color:#f8f8f8;
+color:#0B0938;
+background-color:#f8f8f8;
 border-style:hidden;
+text-align: center;
 }
 input.mpinfo:focus {
-border-top-width: 0px;
-border-right-width: 0px;
-border-left-width: 0px;
+
 border-bottom-width: 2px;
 border-bottom-style: solid;
-border-bottom-color: green;
 
 } 
-/* end css tabs */

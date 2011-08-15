@@ -9,17 +9,17 @@ var A_TCALDEF = {
 	'yearscroll': true, // show year scroller
 	'weekstart': 0, // first day of week: 0-Su or 1-Mo
 	'centyear'  : 70, // 2 digit years less than 'centyear' are in 20xx, othewise in 19xx.
-	'imgpath' : 'calendar/img/' // directory with calendar images
+	'imgpath' : 'images/' // directory with calendar images
 };
 // date parsing function
 function f_tcalParseDate (s_date) {
 
-	var re_date = /^\s*(\d{1,2})\/(\d{1,2})\/(\d{2,4})\s*$/;
+	var re_date = /^\s*(\d{2,4})\-(\d{1,2})\-(\d{1,2})\s*$/;
 	if (!re_date.exec(s_date))
-		return alert ("Invalid date: '" + s_date + "'.\nAccepted format is mm/dd/yyyy.")
-	var n_day = Number(RegExp.$2),
-		n_month = Number(RegExp.$1),
-		n_year = Number(RegExp.$3);
+		return alert ("Invalid date: '" + s_date + "'.\nAccepted format is yyyy-mm-dd.")
+	var n_day = Number(RegExp.$3);
+	var	n_month = Number(RegExp.$2);
+	var n_year = Number(RegExp.$1);
 	
 	if (n_year < 100)
 		n_year += (n_year < this.a_tpl.centyear ? 2000 : 1900);
@@ -34,9 +34,9 @@ function f_tcalParseDate (s_date) {
 // date generating function
 function f_tcalGenerDate (d_date) {
 	return (
-		 (d_date.getMonth() < 9 ? '0' : '') + (d_date.getMonth() + 1) + "/"
-		+ (d_date.getDate() < 10 ? '0' : '') + d_date.getDate() + "/"
-		+ d_date.getFullYear()
+		d_date.getFullYear() + "-"
+		+ (d_date.getMonth() < 9 ? '0' : '') + (d_date.getMonth() + 1) + "-"
+		+ (d_date.getDate() < 10 ? '0' : '') + d_date.getDate()
 	);
 }
 
@@ -211,7 +211,7 @@ function f_tcalUpdate (d_date) {
 		for (var n_wday = 0; n_wday < 7; n_wday++) {
 
 			a_class = [];
-			n_date  = d_current.getDate();
+			n_date = d_current.getDate();
 			n_month = d_current.getMonth();
 
 			// other month
@@ -250,9 +250,9 @@ function f_tcalUpdate (d_date) {
 	this.e_shade.style.width = (n_width + 8) + 'px';
 	this.e_shade.style.left = (n_left - 1) + 'px';
 	this.e_shade.style.top = (n_top - 1) + 'px';
-	this.e_shade.innerHTML = b_ieFix
-		? '<table><tbody><tr><td rowspan="2" colspan="2" width="6"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td><td width="7" height="7" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + this.a_tpl.imgpath + 'shade_tr.png\', sizingMethod=\'scale\');"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td></tr><tr><td height="' + (n_height - 7) + '" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + this.a_tpl.imgpath + 'shade_mr.png\', sizingMethod=\'scale\');"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td></tr><tr><td width="7" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + this.a_tpl.imgpath + 'shade_bl.png\', sizingMethod=\'scale\');"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td><td style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + this.a_tpl.imgpath + 'shade_bm.png\', sizingMethod=\'scale\');" height="7" align="left"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td><td style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + this.a_tpl.imgpath + 'shade_br.png\', sizingMethod=\'scale\');"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td></tr><tbody></table>'
-		: '<table><tbody><tr><td rowspan="2" width="6"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td><td rowspan="2"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td><td width="7" height="7"><img src="' + this.a_tpl.imgpath + 'shade_tr.png"></td></tr><tr><td background="' + this.a_tpl.imgpath + 'shade_mr.png" height="' + (n_height - 7) + '"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td></tr><tr><td><img src="' + this.a_tpl.imgpath + 'shade_bl.png"></td><td background="' + this.a_tpl.imgpath + 'shade_bm.png" height="7" align="left"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td><td><img src="' + this.a_tpl.imgpath + 'shade_br.png"></td></tr><tbody></table>';
+	//this.e_shade.innerHTML = b_ieFix
+	//	? '<table><tbody><tr><td rowspan="2" colspan="2" width="6"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td><td width="7" height="7" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + this.a_tpl.imgpath + 'shade_tr.png\', sizingMethod=\'scale\');"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td></tr><tr><td height="' + (n_height - 7) + '" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + this.a_tpl.imgpath + 'shade_mr.png\', sizingMethod=\'scale\');"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td></tr><tr><td width="7" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + this.a_tpl.imgpath + 'shade_bl.png\', sizingMethod=\'scale\');"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td><td style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + this.a_tpl.imgpath + 'shade_bm.png\', sizingMethod=\'scale\');" height="7" align="left"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td><td style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + this.a_tpl.imgpath + 'shade_br.png\', sizingMethod=\'scale\');"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td></tr><tbody></table>'
+	//	: '<table><tbody><tr><td rowspan="2" width="6"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td><td rowspan="2"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td><td width="7" height="7"><img src="' + this.a_tpl.imgpath + 'shade_tr.png"></td></tr><tr><td background="' + this.a_tpl.imgpath + 'shade_mr.png" height="' + (n_height - 7) + '"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td></tr><tr><td><img src="' + this.a_tpl.imgpath + 'shade_bl.png"></td><td background="' + this.a_tpl.imgpath + 'shade_bm.png" height="7" align="left"><img src="' + this.a_tpl.imgpath + 'pixel.gif"></td><td><img src="' + this.a_tpl.imgpath + 'shade_br.png"></td></tr><tbody></table>';
 	
 	if (this.e_iframe) {
 		this.e_iframe.style.left = n_left + 'px';
@@ -301,7 +301,7 @@ function f_tcalHideAll () {
 	if (!window.A_TCALSIDX) return;
 	for (var i = 0; i < window.A_TCALSIDX.length; i++)
 		window.A_TCALSIDX[i].f_hide();
-}
+}	
 
 function f_tcalResetTime (d_date) {
 	d_date.setHours(12);

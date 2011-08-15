@@ -25,7 +25,7 @@ ul.tabbernav
  margin:0;
  padding: 3px 0;
  border-bottom: 1px solid #778;
- font: bold 12px 'Microsoft YaHei',Verdana, sans-serif;
+ font: 1em 'Microsoft YaHei',Verdana, sans-serif;
 }
 
 ul.tabbernav li
@@ -57,15 +57,15 @@ ul.tabbernav li a:hover
 
 ul.tabbernav li.tabberactive a
 {
- background-color: #fff;
+ background-color: #f8f8f8;
  border-bottom: 1px solid #fff;
 }
 
 ul.tabbernav li.tabberactive a:hover
 {
  color: #000;
- background: white;
- border-bottom: 1px solid white;
+ background: #f8f8f8;
+ border-bottom: 1px solid #f8f8f8;
 }
 
 /*--------------------------------------------------

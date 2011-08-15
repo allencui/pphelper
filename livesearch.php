@@ -29,10 +29,6 @@ else { //Multiple products. Take time to load.
 	//	$pinfo =$buy360::getProductInfo($purl);
 }
 
-//echo "<p>«Î ‰»Î” œ‰µÿ÷∑: <input type=\"text\" size=\"30\" id=\"email\" /></p>";
-//echo "<input type=\"submit\" name=\"submit\" value=\"Submit\" />";
-//echo "</form>";
-
 
 
 ?>
